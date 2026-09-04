@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kapitel 1 Lektion 1</title>
+</head>
+<body>
+  <script src="http://koda.nu/simple.js">
+
+
+   var player = {
+      x: 800,
+      y: 800,
+      size: 40,
+      speedX: 5,  // km/h //Med 0, så blir bollen fallande. Bollen har 1 riktning.
+      speedY: 5, // km/h //Med -2, så rör sig bollen uppåt
+      color: "blue"
+    };
+   
+    function update() {
+   clearScreen();
+   circle(player.x, player.y, player.size, player.color);
+   player.x = player.x + player.speedX;
+   player.y = player.y + player.speedY;
+  
+   
+  if(player.x >= totalWidth) {player.x = 0;}
+  if(player.y >= totalHeight) {player.y = 0;}
+   
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>
