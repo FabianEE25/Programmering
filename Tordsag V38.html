@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Intro</title>
+</head>
+<body>
+  <script src="http://koda.nu/simple.js">
+    
+
+
+    // var x = 5
+    // var y = "5"
+    // var z = x + y
+    // console.log(typeof z);
+
+    var player = {x: 400, y: 300, size: 40, color: "blue", speed: 10};
+
+    var x = 800;
+    var y = 200;
+    var storlek = 50
+    var dx = player.x - x;
+    var dy = player.y - y;  
+    var avstand = Math.sqrt(dx * dx + dy * dy);
+    //var enemy = {x: 200, y: 200, size: 30, color: "red", speed: 6};
+
+    function update(){
+        clearScreen();
+        circle(player.x, player.y, player.size, player.color);
+        text(50, 40, 40, "X Är: " + player.x, "Y Är: " + player.y);
+        circle(x, y, storlek, "Black")
+        
+        if (keyboard.d) {
+            player.x = player.x + player.speed;
+        }
+        if (keyboard.a) {
+            player.x = player.x - player.speed;
+        }
+        if (keyboard.w) {
+            player.y = player.y - player.speed; 
+        }
+        if (keyboard.s) {
+            player.y = player.y + player.speed; 
+        }
+        if (player.x + player.size > totalWidth) {
+            player.x = totalWidth - player.size;
+        }
+        if (player.y + player.size > totalHeight) {
+            player.y = totalHeight - player.size;
+        }   
+        if (player.x - player.size < 0) {
+            player.x = player.size; 
+        }
+        if (player.y - player.size < 0) {
+            player.y = player.size;
+        }
+        if (keyboard.shift) {
+            player.speed = player.speed * 2; 
+        } else { 
+            player.speed = 10
+        }
+
+        if (player.x + player.size * 2 > x) {
+            text(50, 100, 40, "Krock!")
+            }
+           
+            
+
+        // 3. När man håller W och D så rör sig spelaren diagonalt uppåt åt höger. Detta är för att vi har lagt till rörelse på x-axeln och y-axeln samtidigt.
+    }
+
+
+
+// function update() {
+   // clearScreen();
+    //circle(enemy.x, enemy.y, enemy.size, enemy.color);
+    //if (keyboard.right) {
+     //   enemy.x = enemy.x + enemy.speed;
+  
+
+
+
+  </script>
+</body>
+</html>
