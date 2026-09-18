@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Intro</title>
+</head>
+<body>
+  <script src="http://koda.nu/simple.js">
+    
+
+    var color = "red";
+    var size = 5; 
+    function update() {
+        
+        if(mouse.left) {
+            if(keyboard.q) {
+                rectangle(mouse.x, mouse.y, 50, 50, color) }
+                else{
+                    circle(mouse.x, mouse.y, size, color);
+                }
+        }
+        if(mouse.right) { 
+            circle(mouse.x, mouse.y, size, "white");
+        }
+        if(keyboard.one) {
+            color = "green";
+        }
+        if(keyboard.two) { 
+            color = "red";
+        }
+        if(keyboard.three) { 
+            color = "blue";
+        }
+        if(keyboard.four){
+            color = "black"; 
+        }
+        if(keyboard.m) {
+            clearScreen();
+        }
+        if(keyboard.up) {
+            size ++
+        }
+        if(keyboard.down) { 
+             size --
+            if(size < 1)
+            size = 1; 
+        }
+
+
+
+
+
+
+     
+
+        text( 30, 40, 40, "Färgen är: ", "black");
+          circle( 500, 35, 20, color); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          //if(keyboard.one) {
+            //alert("Du tryckte på 1");
+          }
+
+ 
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>
