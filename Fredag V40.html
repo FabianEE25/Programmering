@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Intro</title>
+</head>
+<body>
+  <script src="http://koda.nu/simple.js">
+var player = { x: 100, y: 300, size: 20, color: "blue", speed: 4 };
+
+var zombie1 = { x: 300, y: 220, speed: 2 };
+var zombie2 = { x: 500, y: 400, speed: 2 };
+var zombie3 = { x: 700, y: 260, speed: 2 };
+var poang = 0;
+
+function drawZombie(x, y) {
+  save(); 
+  translate(x, y);
+  if(zombie1.x > player.x) {scale(1, 1);} else {scale(-1, 1);} // Om zombie är till höger om spelaren ska den vända sig åt vänster.
+  // rotate(poang, 0.2); // om man lägger den efter restore() så kommer hela skärmen röra sig. Men nu är den bara på zombien.
+  rectangle(3, -10, 23, 65, "lightgreen"); 
+  rectangle(3, -25, 23, 65, "gray");
+  circle(15, -40, 20, "lightgreen");
+  circle(0, -40, 3, "red");
+  rectangle(-35, -20, 30, 14, "lightgreen"); 
+  rectangle(-20, -20, 30, 14, "gray");
+  restore(); // tar man bort restore försvinner allt på skärmen. 
+  // Om restore inte finns kommer man inte kunna ladda in något från save()
+  
+}
+
+function separateZombies(a, b) {
+  var minDistance = 60;
+  var dx = b.x - a.x;
+  var dy = b.y - a.y;
+  var d = Math.sqrt(dx * dx + dy * dy);
+
+  if (d < minDistance) {
+    if (d === 0) {
+      dx = 1;
+      d = 1;
+    }
+
+    var push = (minDistance - d) / 2;
+    a.x -= (dx / d) * push;
+    a.y -= (dy / d) * push;
+    b.x += (dx / d) * push;
+    b.y += (dy / d) * push;
+  }
+}
+
+function update() {
+  clearScreen();
+  text(20, 30, 24, "Zombiespelet", "black");
+
+  drawZombie(zombie1.x, zombie1.y);
+  drawZombie(zombie2.x, zombie2.y);
+  drawZombie(zombie3.x, zombie3.y);
+
+  separateZombies(zombie1, zombie2);
+separateZombies(zombie1, zombie3);
+separateZombies(zombie2, zombie3);
+
+  circle(player.x, player.y, player.size, player.color);
+
+  if (keyboard.d) {
+    player.x = player.x + player.speed;
+  }
+  if (keyboard.a) {
+    player.x = player.x - player.speed;
+  }
+  if (keyboard.w) {
+    player.y = player.y - player.speed;
+  }
+  if (keyboard.s) {
+    player.y = player.y + player.speed;
+  }
+
+  if (zombie1.x < player.x) {
+    zombie1.x = zombie1.x + zombie1.speed;
+  }
+  if (zombie1.x > player.x) {
+    zombie1.x = zombie1.x - zombie1.speed;
+  }
+  if (zombie1.y < player.y) {
+    zombie1.y = zombie1.y + zombie1.speed;
+  }
+  if (zombie1.y > player.y) {
+    zombie1.y = zombie1.y - zombie1.speed;
+  }
+  if (zombie2.x < player.x) {
+    zombie2.x = zombie2.x + zombie2.speed;
+  }
+  if (zombie2.x > player.x) {
+    zombie2.x = zombie2.x - zombie2.speed;
+  }
+  if (zombie2.y < player.y) {
+    zombie2.y = zombie2.y + zombie2.speed;
+  }
+  if (zombie2.y > player.y) {
+    zombie2.y = zombie2.y - zombie2.speed;
+  }
+  if (zombie3.x < player.x) {
+    zombie3.x = zombie3.x + zombie3.speed;
+  }
+  if (zombie3.x > player.x) {
+    zombie3.x = zombie3.x - zombie3.speed;
+  }
+  if (zombie3.y < player.y) {
+    zombie3.y = zombie3.y + zombie3.speed;
+  }
+  if (zombie3.y > player.y) {
+    zombie3.y = zombie3.y - zombie3.speed;
+  }
+
+  if (distance(player, zombie1) < 65) {
+    text(280, 250, 50, "GAME OVER", "red");
+    // stopUpdate();
+  } else {
+    poang = poang + 1;
+    text(20, 70, 24, "Poäng: " + poang, "black");
+  }
+  if(poang >= 1000) {text(600, 80, 100, "DU VANN!", "green") // Poäng är 1000, då vinner spelaren.
+    stopUpdate();
+  }
+
+//   if( distance(zombie1, zombie2)    < 100) { // Om zombierna krockar med varandra så ska de flytta sig ifrån varandra.
+//     zombie1.x = zombie1.x - 10;
+//     zombie2.x = zombie2.x + 10;
+//   }
+
+
+
+}
+
+
+
+
+
+
+    
+  </script>
+</body>
+</html>
