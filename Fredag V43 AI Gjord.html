@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skatteverket Horror</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #050505;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: red;
+            text-shadow: 0 0 20px red;
+            font-size: 36px;
+        }
+
+        #spelruta {
+            width: 1200px;
+            max-width: 96vw;
+            height: 700px;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle, #292929, #080808 75%);
+            border: 4px solid #770000;
+            box-sizing: border-box;
+        }
+
+        #spelare {
+            width: 35px;
+            height: 55px;
+            position: absolute;
+            left: 80px;
+            top: 300px;
+            background: #ddd;
+            border: 2px solid white;
+            border-radius: 8px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        #spelare::after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #222;
+            border-radius: 50%;
+            top: 8px;
+            left: 9px;
+        }
+
+        #skatteverket {
+            position: absolute;
+            width: 110px;
+            height: 72px;
+            left: 1000px;
+            top: 300px;
+            z-index: 3;
+        }
+
+        #skatteverket img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            filter: drop-shadow(0 0 15px red);
+        }
+
+        #skatteverket.bild-saknas::after {
+            content: "SKATTEVERKET";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            padding: 5px;
+            border: 3px solid darkred;
+            background: white;
+            color: #222;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #text {
+            font-size: 22px;
+            color: #ff3333;
+            min-height: 28px;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            background: darkred;
+            color: white;
+            border: 1px solid red;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: red;
+        }
+
+        #instruktioner {
+            color: #bbb;
+        }
+
+        @media (max-width: 700px) {
+            #spelruta {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>SKATTEVERKET HORROR</h1>
+    <p>Du har glömt att deklarera...</p>
+
+    <div id="spelruta">
+
+        <div id="spelare"></div>
+
+        <picture id="skatteverket">
+            <img src="images/skatteverket.png"
+                 alt="Den onda Skatteverket-loggan"
+                 onerror="this.hidden = true; this.parentElement.classList.add('bild-saknas')">
+        </picture>
+
+    </div>
+
+    <p id="text">Klicka på Starta för att börja!</p>
+
+    <button onclick="starta()">STARTA SPELET</button>
+
+    <p id="instruktioner">
+        WASD eller piltangenterna = rörelse.
+        Spring undan från Skatteverket!
+    </p>
+
+    <script>
+        var spel = false;
+
+        var spelareX = 80;
+        var spelareY = 300;
+
+        var fiendeX = 1000;
+        var fiendeY = 300;
+        var fiendeStorlek = 110;
+
+        var tangenter = {};
+        var timer = null;
+        var senasteTid = 0;
+
+        var ruta = document.getElementById("spelruta");
+        var spelare = document.getElementById("spelare");
+        var fiende = document.getElementById("skatteverket");
+        var text = document.getElementById("text");
+
+        function starta() {
+            clearTimeout(timer);
+
+            spel = true;
+            tangenter = {};
+
+            spelareX = 80;
+            spelareY = ruta.clientHeight / 2;
+
+            fiendeStorlek = 110;
+            fiendeX = ruta.clientWidth - 150;
+            fiendeY = ruta.clientHeight / 2;
+
+            senasteTid = 0;
+
+            text.textContent = "SPRING! DE ÄR EFTER DIG!";
+
+            uppdateraSpelare();
+            uppdateraFiende();
+
+            timer = setTimeout(function() {
+                spelLoop(performance.now());
+            }, 30);
+        }
+
+        document.addEventListener("keydown", function(event) {
+            var knapp = event.key.toLowerCase();
+
+            if ([
+                "arrowup", "arrowdown",
+                "arrowleft", "arrowright",
+                "w", "a", "s", "d"
+            ].includes(knapp)) {
+                event.preventDefault();
+                tangenter[knapp] = true;
+            }
+        });
+
+        document.addEventListener("keyup", function(event) {
+            tangenter[event.key.toLowerCase()] = false;
+        });
+
+        function uppdateraSpelare() {
+            spelare.style.left = spelareX + "px";
+            spelare.style.top = spelareY + "px";
+        }
+
+        function uppdateraFiende() {
+            fiende.style.left = fiendeX + "px";
+            fiende.style.top = fiendeY + "px";
+            fiende.style.width = fiendeStorlek + "px";
+        }
+
+        function spelLoop(tid) {
+            if (spel == false) {
+                return;
+            }
+
+            var delta = 0.03;
+
+            if (senasteTid > 0) {
+                delta = Math.min((tid - senasteTid) / 1000, 0.05);
+            }
+
+            senasteTid = tid;
+
+            // Spelarens hastighet
+            var hastighet = 260 * delta;
+
+            if (tangenter["arrowleft"] || tangenter["a"]) {
+                spelareX -= hastighet;
+            }
+
+            if (tangenter["arrowright"] || tangenter["d"]) {
+                spelareX += hastighet;
+            }
+
+            if (tangenter["arrowup"] || tangenter["w"]) {
+                spelareY -= hastighet;
+            }
+
+            if (tangenter["arrowdown"] || tangenter["s"]) {
+                spelareY += hastighet;
+            }
+
+            // Håll spelaren inne på kartan
+            var maxX = ruta.clientWidth - 35;
+            var maxY = ruta.clientHeight - 55;
+
+            spelareX = Math.max(0, Math.min(maxX, spelareX));
+            spelareY = Math.max(0, Math.min(maxY, spelareY));
+
+            uppdateraSpelare();
+
+            // Räkna ut riktningen mot spelaren
+            var spelareMittX = spelareX + 17;
+            var spelareMittY = spelareY + 27;
+
+            var fiendeMittX = fiendeX + fiendeStorlek / 2;
+            var fiendeMittY = fiendeY + fiendeStorlek / 2;
+
+            var skillnadX = spelareMittX - fiendeMittX;
+            var skillnadY = spelareMittY - fiendeMittY;
+
+            var avstand = Math.sqrt(
+                skillnadX * skillnadX +
+                skillnadY * skillnadY
+            );
+
+            // Skatteverket jagar dig
+            if (avstand > 0) {
+                var fiendeHastighet = 105 * delta;
+
+                fiendeX += skillnadX / avstand * fiendeHastighet;
+                fiendeY += skillnadY / avstand * fiendeHastighet;
+            }
+
+            // Fienden blir större när den kommer närmare
+            fiendeStorlek = Math.max(
+                110,
+                Math.min(250, 110 + (500 - avstand) * 0.15)
+            );
+
+            // Håll fienden inom kartan
+            fiendeX = Math.max(
+                0,
+                Math.min(ruta.clientWidth - fiendeStorlek, fiendeX)
+            );
+
+            fiendeY = Math.max(
+                0,
+                Math.min(ruta.clientHeight - fiendeStorlek, fiendeY)
+            );
+
+            uppdateraFiende();
+
+            // Kontrollera om du blivit fångad
+            if (avstand < fiendeStorlek / 2 + 20) {
+                spel = false;
+
+                text.textContent =
+                    "DU BLEV FÅNGAD AV SKATTEVERKET!";
+
+                return;
+            }
+
+            timer = setTimeout(function() {
+                spelLoop(performance.now());
+            }, 30);
+        }
+    </script>
+
+</body>
+</html>

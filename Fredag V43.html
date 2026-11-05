@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Intro</title>
+</head>
+<body>
+  <script src="http://koda.nu/simple.js">
+    var player = {x: 200, y: 300, size: 20, color: "red", speed: 8 };
+
+    var enemy1 = {x: 400, y: 100, size: 15, speed: 4};
+    var poang = 0; 
+
+    function update() {
+        clearScreen()
+        fill("black")
+    circle(enemy1.x, enemy1.y, enemy1.size, "red");
+  
+    circle(player.x, player.y, player.size, "blue");
+    if(keyboard.d){player.x = player.x + player.speed;}
+    if(keyboard.a){player.x = player.x - player.speed;}
+    if(keyboard.w){player.y = player.y - player.speed;}
+    if(keyboard.s){player.y = player.y + player.speed;}
+    
+    if (enemy1.x < player.x){enemy1.x = enemy1.x + enemy1.speed;}
+    if (enemy1.x > player.x){enemy1.x = enemy1.x - enemy1.speed;}
+    if (enemy1.y < player.y){enemy1.y = enemy1.y + enemy1.speed;}
+    if (enemy1.y > player.y){enemy1.y = enemy1.y - enemy1.speed;}
+   
+    
+    if(distance(player, enemy1) < 30) {
+        picture(0, 0, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpifaW6lA8D-6HTyuBQ6HqEFv9Sf93wY5Povc9V83LiQ&s=10", totalWidth, totalHeight)
+    
+    //{text(250, 200, 50,  "GAME OVER", "red") 
+    stopUpdate()}
+
+   
+
+}
+
+
+   
+
+
+
+  
+
+
+
+
+  </script>
+</body>
+</html>
