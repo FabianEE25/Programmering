@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Intro</title>
+</head>
+<body>
+  <script src="http://koda.nu/simple.js">
+   
+
+    var player = {x: 300, y: 267, size: 35, speed: 5, color: "red"};
+
+     
+    
+    function update(){
+    circle(player.x, player.y, player.size, player.color);
+    text(20, 70, 60, "MÅLA!", "black");
+
+    if(keyboard.one) {player.color = "red";}
+    if(keyboard.two) {player.color = "blue";}
+
+    player.x = mouse.x;
+    player.y = mouse.y;}
+    
+   
+   
+
+  </script>
+</body>
+</html>
