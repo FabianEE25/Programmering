@@ -1,0 +1,32 @@
+// ===== MIN PROJEKTPLAN =====
+// Spelidé: (skriv en kort beskrivning, 2-4 meningar)
+Jag har en idé för ett spel som liknar stilen på GTA 1 fast med zombies. Man ser ovanfrån och och man ska försöka överleva vågor av zombies så länge som möjligt.
+Jag tror inte att jag kommer hinna att göra nya vapen men jag ska försöka få med powerups och olika typer av zombies för att förbättra spelet. 
+Det ska finnas en poängräknare som ökar efter varje zombie man dödar. 
+
+// --- SAKER JAG VILL ÖVA PÅ (utifrån tidigare feedback) ---
+// (Vad har du fått feedback om tidigare som du vill bli bättre på,
+//  eller något du aldrig hann klart med? Skriv in det här och se till
+//  att du övar på det i ditt spel under projektet.)
+// 1. Jag vill öva på att göra arrayer och loopar då det var det som jag behövde mest hjälp med och som stod i min feedback på förra provet. 
+Jag ska också börja kommentera mer i min kod för att få in mina begrepp bättre. Jag kan if statser relativt bra men jag vill göra dem bättre och mer avancerade.
+
+
+// --- MITT KRAV (måste finnas) ---
+// Antal spelare: 1
+// Antal fiender/hinder: Det beror på vilket wave man är på, men det ska vara olika typer av zombies som har olika hp och speed.
+// Mål (hur vinner/klarar man spelet?): Överlev så länge såm möjligt.
+// Förlustvillkor (hur förlorar man?): Om man förlorar sina 3 liv. 
+
+// --- MIN REKOMMENDATION (bör finnas) ---
+// 1. Powerups som man kan plocka upp för att få olika effekter, t.ex. ökad speed, ökad skada, extra liv etc.
+// 2. Placerbara objekt som man kan använda för att blockera zombies, t.ex. väggar, fällor etc.
+
+// --- MIN UTMANING (kan finnas, om tid finns) ---
+// 1. Fler vapen med mer skada och olika effekter, t.ex. eld, is, gift etc.
+// 2. Mer avancerade zombies med olika beteenden, t.ex. zombies som kan hoppa, zombies som kan kasta saker etc.
+
+// --- FÖRBÄTTRINGAR ATT GÖRA SEN ---
+// (Lägg till fler idéer här under hela projektet.
+//  Känner du dig klar med allt ovan? Kolla den här listan och börja på nästa.)
+// Större karta, ljud, menyer: startmeny, pausmeny. Bossar. 
