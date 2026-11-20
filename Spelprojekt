@@ -16,7 +16,7 @@ Jag ska också börja kommentera mer i min kod för att få in mina begrepp bät
 // Antal spelare: 1
 // Antal fiender/hinder: Det beror på vilket wave man är på, men det ska vara olika typer av zombies som har olika hp och speed.
 // Mål (hur vinner/klarar man spelet?): Överlev så länge såm möjligt.
-// Förlustvillkor (hur förlorar man?): Om man förlorar sina 3 liv. 
+// Förlustvillkor (hur förlorar man?): Om man förlorar sina 3 liv genom att zombien rör vispelaren. 
 
 // --- MIN REKOMMENDATION (bör finnas) ---
 // 1. Powerups som man kan plocka upp för att få olika effekter, t.ex. ökad speed, ökad skada, extra liv etc.
@@ -25,6 +25,7 @@ Jag ska också börja kommentera mer i min kod för att få in mina begrepp bät
 // --- MIN UTMANING (kan finnas, om tid finns) ---
 // 1. Fler vapen med mer skada och olika effekter, t.ex. eld, is, gift etc.
 // 2. Mer avancerade zombies med olika beteenden, t.ex. zombies som kan hoppa, zombies som kan kasta saker etc.
+// 3. Health bar för zombies 
 
 // --- FÖRBÄTTRINGAR ATT GÖRA SEN ---
 // (Lägg till fler idéer här under hela projektet.

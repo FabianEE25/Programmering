@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Intro</title>
+  <style>
+        body {
+            background-image: url("https://img.itch.zone/aW1hZ2UvMzkwOTY1My8yMzMyNTUzOC5wbmc=/original/r4hl8V.png");
+            background-size: cover;
+        }
+        
+    </style>
+</head>
+<body>
+  <script src="http://koda.nu/simple.js">
+
+ // Pseudokod
+// Spelarens rörelse
+// OM spelaren trycker på W, A, S eller D:
+//Flytta spelaren åt rätt håll
+// Zombie och krock
+// OM en zombie rör vid spelaren:
+//Ta bort 1 liv
+
+ // Pseudokod 
+// Förlustvillkor
+// OM spelarens liv är 0:
+//Avsluta spelet och visa "GAME OVER"
+// Waves
+// OM alla zombies är besegrade:
+//Starta nästa wave med fler zombies
+
+
+var player = {
+    x: 100,
+    y: 200,
+    speed: 3,
+    lives: 3
+}
+
+var zombies = [
+    { x: 100, y: 100, hp: 2, speed: 1 },
+    { x: 200, y: 150, hp: 5, speed: 0.5 },
+    { x: 300, y: 200, hp: 1, speed: 2 }
+]
+
+// Poäng
+var poang = 0;
+// Waves
+var wave = 1;
+// Zombies
+var zombies = [];
+
+function update() {
+clearScreen(); 
+circle(player.x, player.y, 20, "blue");
+if (keyboard.w) {
+    player.y = player.y - player.speed;
+
+
+}
+
+    
+
+}
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>
