@@ -31,7 +31,7 @@
 // OM alla zombies är besegrade:
 //Starta nästa wave med fler zombies
 
-
+// Variable för spelaren
 var player = {
     x: 100,
     y: 200,
@@ -39,12 +39,14 @@ var player = {
     lives: 3
 }
 
+// Array för zombies
 var zombies = [
-    { x: 100, y: 100, hp: 2, speed: 1 },
-    { x: 200, y: 150, hp: 5, speed: 0.5 },
-    { x: 300, y: 200, hp: 1, speed: 2 }
+    { x: 100, y: 100, hp: 2, speed: 1, color: "green" },
+    { x: 200, y: 150, hp: 5, speed: 0.5, color: "red" },
+    { x: 300, y: 200, hp: 1, speed: 2, color: "blue"}
 ]
 
+// Variable för poäng, waves och zombies
 // Poäng
 var poang = 0;
 // Waves
@@ -52,15 +54,20 @@ var wave = 1;
 // Zombies
 var zombies = [];
 
+// Funktion för att rita spelaren och röra sig. 
 function update() {
 clearScreen(); 
 circle(player.x, player.y, 20, "blue");
-if (keyboard.w) {
-    player.y = player.y - player.speed;
+if (keyboard.w) {player.y = player.y - player.speed;}
+if (keyboard.s) {player.y = player.y + player.speed;}
+if (keyboard.a) {player.x = player.x - player.speed;} 
+if (keyboard.d) {player.x = player.x + player.speed;}
 
 
-}
 
+
+//if (player.x < totalWidth) {
+   
     
 
 }
