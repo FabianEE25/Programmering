@@ -47,7 +47,7 @@ var antalZombies = 3;
 var poang = 0;
 // Waves
 var wave = 0;
-
+//Funktion för att skapa zombies efter varje wave i sin egen Loop. 
 function skapaZombies(){
     wave = wave + 1;
     for (var i = 0; i < antalZombies; i++) {
@@ -56,7 +56,8 @@ function skapaZombies(){
             y: random(0, totalHeight),
             hp: 2, 
             speed: 1,
-            color: "green"
+            color: "green",
+            touchingPlayer: false
         };
         zombies.push(zombie);
     }
@@ -66,34 +67,43 @@ function skapaZombies(){
 // Funktion för att rita spelaren och röra sig. 
 function update() {
 clearScreen(); 
+if (player.lives <= 0) {
+    text(280, 250, 50, "GAME OVER", "RED");
+    return;
+}
 circle(player.x, player.y, 20, "blue");
 if (zombies.length == 0) {
     skapaZombies();
 }
+// Rörelse Loop för Zombies som spawnar och redan finns inladdade.
 for (var i = 0; i < zombies.length; i++) {
     circle(zombies[i].x, zombies[i].y, 20, zombies[i].color);
      if (zombies[i].x < player.x) {zombies[i].x = zombies[i].x + zombies[i].speed}
      if (zombies[i].x > player.x) {zombies[i].x = zombies[i].x - zombies[i].speed}
      if (zombies[i].y < player.y) {zombies[i].y = zombies[i].y + zombies[i].speed}
      if (zombies[i].y > player.y) {zombies[i].y = zombies[i].y - zombies[i].speed}
-}// Rörelse för spelaren (Tagentbord)
+}
+// Rörelse för spelaren (Tagentbord)
 if (keyboard.w) {player.y = player.y - player.speed;}
 if (keyboard.s) {player.y = player.y + player.speed;}
 if (keyboard.a) {player.x = player.x - player.speed;} 
 if (keyboard.d) {player.x = player.x + player.speed;}
 
-var i = 0;
-while (i > wave) {
-    if (zombies[i].x < player.x) {zombies[i].x = zombies[i].x + zombies[i].speed}
+for (var i = 0; i < zombies.length; i++) {
+    var dx = zombies[i].x - player.x;
+    var dy = zombies[i].y - player.y;
+    var touchingPlayer = dx * dx + dy * dy <= 40 * 40;
 
+    if (touchingPlayer && !zombies[i].touchingPlayer) {
+        player.lives = player.lives - 1;
+    }
+    zombies[i].touchingPlayer = touchingPlayer;
 }
 
-if (zombies[i].x < player.x) {zombies[i].x = zombies[i].x + zombies[i].speed}
-
-
-
-
-    
+text(10, 30, 20, "Lives: " + player.lives, "white");
+if (player.lives <= 0) {
+    text(280, 250, 50, "GAME OVER", "RED");
+}
 }
 
 
