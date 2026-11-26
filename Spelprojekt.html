@@ -38,38 +38,62 @@ var player = {
     speed: 3,
     lives: 3
 }
-
 // Array för zombies
-var zombies = [
-    { x: 100, y: 100, hp: 2, speed: 1, color: "green" },
-    { x: 200, y: 150, hp: 5, speed: 0.5, color: "red" },
-    { x: 300, y: 200, hp: 1, speed: 2, color: "blue"}
-]
-
+var zombies = [];
+// Variabel för antal zombies i början av spelet    
+var antalZombies = 3;
 // Variable för poäng, waves och zombies
 // Poäng
 var poang = 0;
 // Waves
-var wave = 1;
-// Zombies
-var zombies = [];
+var wave = 0;
+
+function skapaZombies(){
+    wave = wave + 1;
+    for (var i = 0; i < antalZombies; i++) {
+        var zombie = {
+            x: random(0, totalWidth),
+            y: random(0, totalHeight),
+            hp: 2, 
+            speed: 1,
+            color: "green"
+        };
+        zombies.push(zombie);
+    }
+    antalZombies = antalZombies + 1;
+}
 
 // Funktion för att rita spelaren och röra sig. 
 function update() {
 clearScreen(); 
 circle(player.x, player.y, 20, "blue");
+if (zombies.length == 0) {
+    skapaZombies();
+}
+for (var i = 0; i < zombies.length; i++) {
+    circle(zombies[i].x, zombies[i].y, 20, zombies[i].color);
+     if (zombies[i].x < player.x) {zombies[i].x = zombies[i].x + zombies[i].speed}
+     if (zombies[i].x > player.x) {zombies[i].x = zombies[i].x - zombies[i].speed}
+     if (zombies[i].y < player.y) {zombies[i].y = zombies[i].y + zombies[i].speed}
+     if (zombies[i].y > player.y) {zombies[i].y = zombies[i].y - zombies[i].speed}
+}// Rörelse för spelaren (Tagentbord)
 if (keyboard.w) {player.y = player.y - player.speed;}
 if (keyboard.s) {player.y = player.y + player.speed;}
 if (keyboard.a) {player.x = player.x - player.speed;} 
 if (keyboard.d) {player.x = player.x + player.speed;}
 
+var i = 0;
+while (i > wave) {
+    if (zombies[i].x < player.x) {zombies[i].x = zombies[i].x + zombies[i].speed}
+
+}
+
+if (zombies[i].x < player.x) {zombies[i].x = zombies[i].x + zombies[i].speed}
 
 
 
-//if (player.x < totalWidth) {
-   
+
     
-
 }
 
 
