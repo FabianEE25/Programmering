@@ -80,6 +80,17 @@ function skapaZombies(){
 }
 
 //Skjuta och sikta med musen. 
+function skott() {
+    if(keyboard.space) {
+        console.log("dwdw")
+        kulor.push( {x: 100, y: 100, s: 10, c: "red"})
+    }
+    for(var i= 0; i < kulor.length; i++) {
+        circle(kulor[i].x, kulor[i].y, kulor[i].s, kulor[i].c)
+        kulor[i].x++
+    }
+
+}
  
 
     
@@ -93,10 +104,10 @@ function update() {
 clearScreen(); 
 circle(player.x, player.y, 20, "blue");
 if (zombies.length == 0) {
-    skapaZombies();
-   
-    
+    skapaZombies();   
 }
+skott() 
+
 // Rörelse Loop för Zombies som spawnar och redan finns inladdade.
 for (var i = 0; i < zombies.length; i++) {
     circle(zombies[i].x, zombies[i].y, 20, zombies[i].color);
