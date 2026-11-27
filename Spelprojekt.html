@@ -58,8 +58,8 @@ var vapen = {
     speed: 8,
     cooldown:3
 };
-
-var sjkuttid = 0;
+// Cooldownen på tiden mellan varje skott.
+var skjuttid = 0;
 
 
 
@@ -81,13 +81,31 @@ function skapaZombies(){
 
 //Skjuta och sikta med musen. 
 function skott() {
-    if(keyboard.space) {
-        console.log("dwdw")
-        kulor.push( {x: 100, y: 100, s: 10, c: "red"})
+    if(keyboard.space && skjuttid == 0) {
+        kulor.push({
+            x: player.x,
+            y: player.y,
+            s: 10,
+            c: "red"
+        });
+        skjuttid = 25;
     }
+
     for(var i= 0; i < kulor.length; i++) {
         circle(kulor[i].x, kulor[i].y, kulor[i].s, kulor[i].c)
         kulor[i].x++
+      
+        //Om kullor lämmnar skärmen tas dem bort.   
+    if(kulor[i].x > totalWidth){
+        kulor.splice(i, 1);
+        i--;
+    }
+    }
+    
+
+    // Nedräckningen av skjuttiden.
+    if(skjuttid > 0){
+        skjuttid--;
     }
 
 }
